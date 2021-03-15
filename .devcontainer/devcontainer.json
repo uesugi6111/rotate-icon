@@ -1,0 +1,47 @@
+{
+    "name": "Rust atcoder",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        "lldb.executable": "/usr/bin/lldb",
+        "rust-client.engine": "rust-analyzer",
+        "files.watcherExclude": {
+            "**/target/**": true
+        },
+        "search.exclude": {
+            "**/target": true
+        },
+        "workbench.colorTheme": "Solarized Dark",
+        "editor.fontFamily": "'MyricaM M','MyricaM',Consolas, 'Courier New', monospace",
+        "editor.suggestSelection": "first",
+        "editor.renderWhitespace": "all",
+        "editor.detectIndentation": false,
+        "workbench.iconTheme": "vscode-icons",
+        "[rust]": {
+            "editor.formatOnSave": true,
+            "editor.defaultFormatter": "matklad.rust-analyzer",
+            "editor.tabSize": 4
+        },
+        "editor.formatOnSave": true,
+        "editor.renderControlCharacters": true,
+        "rust-analyzer.updates.askBeforeDownload": false,
+        "rust-analyzer.updates.channel": "stable",
+        "rust-analyzer.trace.server": "verbose",
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "lldb.libpython": ""
+    },
+    "extensions": [
+        //"rust-lang.rust",
+        "bungcip.better-toml",
+        "vadimcn.vscode-lldb",
+        "mutantdino.resourcemonitor",
+        "matklad.rust-analyzer"
+    ],
+}
