@@ -10,7 +10,7 @@ Twitterのアイコンを毎時回すぜ
 
 ### 使い方
 
-1. .env を.env.sample の通りに生成
+1. .env を.env.sample の通りに生成(Twitter APIのキーが必要なので普通無理では)
 2. build
 ```
 docker run --rm -it -v  {ここに絶対パス}\rotate-icon:/home/rust/src ekidd/rust-musl-builder cargo build --release
