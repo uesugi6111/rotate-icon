@@ -11,12 +11,11 @@ name = "rotate-icon"
 path = "src/bin/main.rs"
 
 [dependencies]
-dotenv = "0.10.1"
-reqwest = { version = "0.11", features = ["json"] }
+dotenv = "0.15.0"
 tokio = { version = "1", features = ["full"] }
-lambda_runtime = "0.2.1"
-serde = { version = "1", features = ["derive"] }
+lambda_runtime = "0.3.0"
 chrono = "0.4.19"
-chrono-tz = "0.5.3"
 openssl-probe = "0.1.2"
-jsonway = "2.0.0"
+egg-mode = { git = "https://github.com/uesugi6111/egg-mode.git", branch = "feature/account" }
+serde_json = "1.0.59"
+once_cell = "1.7.2"
