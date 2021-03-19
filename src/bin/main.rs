@@ -1,14 +1,15 @@
-use lambda_runtime::{error::HandlerError, lambda, Context};
+use lambda_runtime::{handler_fn, Context};
+use rotate_icon::run;
+use serde_json::Value;
 
-async fn handler(
-    _event: std::collections::HashMap<String, String>,
-    _context: Context,
-) -> Result<(), HandlerError> {
+type Error = Box<dyn std::error::Error + Sync + Send + 'static>;
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    openssl_probe::init_ssl_cert_env_vars();
+    lambda_runtime::run(handler_fn(handler)).await?;
     Ok(())
 }
 
-fn main() {
-    openssl_probe::init_ssl_cert_env_vars();
-    let rt = tokio::runtime::Runtime::new().unwrap();
-    lambda!(move |event, context| rt.block_on(handler(event, context)));
+async fn handler(_: Value, _: Context) -> Result<Value, Error> {
+    Ok(run().await?)
 }
