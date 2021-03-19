@@ -3,8 +3,9 @@
 アイコンを回すぜ
 
 ### これはなに
-
+ 
 Twitterのアイコンを毎時回すぜ  
+[これ](https://github.com/uesugi6111/generate-rotated-img)で回転アイコンを生成したぜ  
 需要？知らんな
 
 ### 使い方
