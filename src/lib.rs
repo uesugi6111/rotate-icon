@@ -36,8 +36,61 @@ fn read_file<P: AsRef<std::path::Path>>(file_path: P) -> Vec<u8> {
     buf
 }
 
-#[tokio::test]
-async fn test() -> Result<()> {
-    run().await?;
-    Ok(())
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use egg_mode::{account::UserProfile, auth, error::Result, tweet::DraftTweet};
+
+    fn get_access() -> auth::Token {
+        auth::Token::Access {
+            consumer: auth::KeyPair::new(
+                API_KEY.as_ref().unwrap(),
+                API_KEY_SECRET.as_ref().unwrap(),
+            ),
+            access: auth::KeyPair::new(
+                ACCESS_TOKEN.as_ref().unwrap(),
+                ACCESS_TOKEN_SECRET.as_ref().unwrap(),
+            ),
+        }
+    }
+
+    #[tokio::test]
+    async fn tweet() -> Result<()> {
+        let access = get_access();
+        let tweet = DraftTweet::new("適当な記事でも生成するか");
+        dbg!(&tweet.send(&access).await.unwrap());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn show() -> Result<()> {
+        let access = get_access();
+
+        dbg!(&egg_mode::user::show("takeda_SE", &access).await.unwrap());
+        let user_profile = UserProfile {
+            name: None,
+            url: Some("https://atcoder.jp/users/uesugi".to_string()),
+            location: None,
+            description: None,
+            profile_link_color: None,
+        };
+        let user = egg_mode::account::update_profile(user_profile, &access)
+            .await
+            .unwrap();
+        dbg!(user);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn update_banner() -> Result<()> {
+        let access = get_access();
+        let file = read_file(std::path::Path::new("./img/pro.png"));
+
+        let user = egg_mode::account::update_profile_banner(&file, None, &access)
+            .await
+            .unwrap();
+        dbg!(user);
+        Ok(())
+    }
 }
